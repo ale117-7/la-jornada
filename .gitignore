@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-electron/
+release/
+*.log
+.claude/settings.local.json
+# Hojas de sprites y recortes (~570 MB): se publican como archivo aparte en Releases, no en el repositorio.
+IMAGENES/

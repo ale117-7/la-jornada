@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⏸ 0:00 · La Jornada</title>
+  </head>
+  <body>
+    <div id="app">
+      <header id="topbar">
+        <button id="btn-toggle" type="button">▶ TRABAJAR</button>
+        <div class="top-info">
+          <div id="clock">Hoy: 0h 00m</div>
+          <div id="signage">TRAMO 001 / −0 M</div>
+          <div id="next-crossroads"></div>
+        </div>
+        <div class="top-info right">
+          <div id="gold">Créditos: 0</div>
+          <div id="currencies"></div>
+          <div id="date-info"></div>
+          <div class="top-actions">
+            <button id="btn-crossroads" type="button" hidden>⚠ Encrucijada pendiente</button>
+            <button id="btn-notify" type="button" hidden>🔔 Activar avisos</button>
+            <button id="btn-chronicle" type="button">Crónica</button>
+            <button id="btn-settings" type="button">Ajustes</button>
+          </div>
+        </div>
+      </header>
+
+      <canvas id="runner"></canvas>
+
+      <section id="base-strip" hidden>
+        <h2>Base Colgante</h2>
+        <div id="base-blocks"></div>
+      </section>
+
+      <section id="panels">
+        <div class="panel">
+          <h2>Descensor</h2>
+          <div id="hero-panel"></div>
+          <div id="gear-panel"></div>
+        </div>
+        <div class="panel">
+          <h2>Grupo y build</h2>
+          <div id="build-panel"></div>
+        </div>
+        <div class="panel">
+          <h2>Sinergias activas</h2>
+          <div id="synergy-panel"></div>
+        </div>
+        <div class="panel">
+          <h2>Sucesos</h2>
+          <div id="world-panel"></div>
+        </div>
+        <div class="panel">
+          <h2>Registro</h2>
+          <div id="log"></div>
+        </div>
+      </section>
+
+      <aside id="debug" hidden></aside>
+    </div>
+
+    <div id="new-day" class="modal" hidden>
+      <div class="modal-box">
+        <h1 id="new-day-title"></h1>
+        <p id="new-day-seed"></p>
+        <p id="new-day-omen"></p>
+        <p id="new-day-condition"></p>
+        <div id="new-day-summary"></div>
+        <button id="btn-start-day" type="button">Elegir el Origen ▸</button>
+      </div>
+    </div>
+
+    <div id="crossroads" class="modal" hidden>
+      <div class="modal-box wide">
+        <h1 id="crossroads-title"></h1>
+        <p id="crossroads-sub"></p>
+        <div id="crossroads-cards"></div>
+        <button id="btn-crossroads-later" type="button">Decidir luego</button>
+      </div>
+    </div>
+
+    <div id="chronicle" class="modal" hidden>
+      <div class="modal-box wide">
+        <div class="modal-head">
+          <h1>Crónica</h1>
+          <button type="button" class="btn-close" data-close="chronicle">Cerrar</button>
+        </div>
+        <p>El historial de tus jornadas. No da ningún poder: solo cuenta lo que pasó.</p>
+        <div id="chronicle-body"></div>
+      </div>
+    </div>
+
+    <div id="settings" class="modal" hidden>
+      <div class="modal-box">
+        <div class="modal-head">
+          <h1>Ajustes</h1>
+          <button type="button" class="btn-close" data-close="settings">Cerrar</button>
+        </div>
+        <h2 class="set-sec">Jornada</h2>
+        <label class="set-row"><span>El día cambia a las</span>
+          <select id="set-cutoff"></select>
+        </label>
+        <label class="set-row"><span>Un hueco mayor que esto no cuenta como trabajado</span>
+          <select id="set-gap">
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+          </select>
+        </label>
+        <h2 class="set-sec">Encrucijadas</h2>
+        <label class="set-row"><span>Si no elijo, el Destino elige tras</span>
+          <select id="set-auto">
+            <option value="0">nunca (desactivado)</option>
+            <option value="10">10 min trabajados</option>
+            <option value="20">20 min trabajados</option>
+            <option value="30">30 min trabajados</option>
+            <option value="45">45 min trabajados</option>
+            <option value="60">60 min trabajados</option>
+          </select>
+        </label>
+        <label class="set-row"><span>Sonido de aviso</span><input id="set-sound" type="checkbox" /></label>
+        <label class="set-row"><span>Notificación del sistema</span><input id="set-notify" type="checkbox" /></label>
+        <div id="set-desktop" hidden>
+          <h2 class="set-sec">Overlay</h2>
+          <label class="set-row"><span>Mostrar el overlay</span><input id="set-ov-visible" type="checkbox" /></label>
+          <label class="set-row" id="set-ov-display-row"><span>Monitor</span>
+            <select id="set-ov-display"></select>
+          </label>
+          <label class="set-row"><span>Disposición</span>
+            <select id="set-ov-layout">
+              <option value="bottom">Franja inferior</option>
+              <option value="top">Franja superior</option>
+              <option value="float">Ventana flotante</option>
+              <option value="mini">Mínimo</option>
+            </select>
+          </label>
+          <label class="set-row"><span>Tamaño</span>
+            <select id="set-ov-size">
+              <option value="70">Delgada (70 px)</option>
+              <option value="110">Normal (110 px)</option>
+              <option value="180">Grande (180 px)</option>
+              <option value="260">Cine (260 px)</option>
+            </select>
+          </label>
+          <label class="set-row"><span>Opacidad <b id="set-ov-opacity-val"></b></span><input id="set-ov-opacity" type="range" min="20" max="100" step="5" /></label>
+          <label class="set-row"><span>Desvanecer al pasar el mouse</span><input id="set-ov-fade" type="checkbox" /></label>
+          <label class="set-row"><span>Ocultar si hay una aplicación en pantalla completa en su monitor<br><small class="warn" id="set-ov-fullscreen-note" hidden>No disponible en este equipo (la política del sistema no deja detectarlo).</small></span><input id="set-ov-fullscreen" type="checkbox" /></label>
+          <label class="set-row"><span>Fluidez del dibujo</span>
+            <select id="set-ov-fps">
+              <option value="30">30 FPS</option>
+              <option value="15">15 FPS (menos CPU)</option>
+            </select>
+          </label>
+          <h2 class="set-sec">Sistema</h2>
+          <label class="set-row"><span>Pausar si me voy del equipo</span>
+            <select id="set-idle">
+              <option value="0">nunca (desactivado)</option>
+              <option value="5">tras 5 min sin actividad</option>
+              <option value="10">tras 10 min sin actividad</option>
+              <option value="15">tras 15 min sin actividad</option>
+              <option value="20">tras 20 min sin actividad</option>
+              <option value="30">tras 30 min sin actividad</option>
+            </select>
+          </label>
+          <label class="set-row"><span>Iniciar con Windows (siempre en pausa)</span><input id="set-autostart" type="checkbox" /></label>
+          <h2 class="set-sec">Atajos de teclado</h2>
+          <div id="set-shortcuts"></div>
+          <p class="set-note" id="set-shortcut-msg" aria-live="polite"></p>
+          <p class="set-note">Funcionan aunque estés en otra aplicación, y le «roban» esa combinación: elige alguna que no uses. Si otra app ya ocupa la de por defecto, La Jornada usa una alternativa.</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

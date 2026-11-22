@@ -1,0 +1,717 @@
+<title>Biblia de arte de La Jornada</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Señalética de descenso: fondo de abismo, rótulos técnicos, una rejilla de fichas filtrable. */
+:root {
+  color-scheme: dark;
+  --bg: #07080d;
+  --panel: #0e1019;
+  --panel-2: #141725;
+  --line: #232838;
+  --fg: #dfe4ee;
+  --dim: #8a93a8;
+  --faint: #5b6377;
+  --accent: #3fe0e6;
+  --amber: #ffb347;
+  --red: #ff4d5e;
+  --neon: #ff3fa4;
+  --sint: #b6ff3f;
+  --abis: #3fe0b0;
+  --hondo: #b48cff;
+  --comun: #cfd6e3;
+  --f-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 46px); letter-spacing: 0.02em; line-height: 1.05; }
+h2 { font-size: 22px; letter-spacing: 0.04em; }
+.kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.lead { color: var(--dim); max-width: 68ch; margin: 12px 0 0; }
+header.top { display: grid; gap: 10px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.depth { font-family: var(--f-mono); color: var(--faint); font-size: 12px; letter-spacing: 0.12em; }
+
+/* resumen */
+.totals { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.tot { background: var(--panel); border: 1px solid var(--line); padding: 8px 12px; font-family: var(--f-mono); font-size: 12px; color: var(--dim); }
+.tot b { color: var(--fg); font-size: 16px; font-weight: 500; margin-right: 6px; font-variant-numeric: tabular-nums; }
+
+/* guía técnica */
+details.spec { margin-top: 22px; background: var(--panel); border: 1px solid var(--line); }
+details.spec > summary { cursor: pointer; padding: 14px 16px; font-family: var(--f-display); font-size: 17px; letter-spacing: 0.04em; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+details.spec > summary::after { content: "＋"; color: var(--accent); }
+details.spec[open] > summary::after { content: "－"; }
+details.spec > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.spec-body { padding: 0 16px 18px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.spec-body section { min-width: 0; }
+.spec-body h3 { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+.spec-body p, .spec-body li { color: var(--dim); font-size: 14px; }
+.spec-body ul { margin: 0; padding-left: 18px; }
+.tbl-wrap { overflow-x: auto; }
+table.sz { border-collapse: collapse; width: 100%; font-size: 13px; }
+table.sz td, table.sz th { border-bottom: 1px solid var(--line); padding: 5px 6px; text-align: left; vertical-align: top; }
+table.sz th { color: var(--faint); font-weight: 500; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+table.sz td.n { font-family: var(--f-mono); color: var(--fg); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pal { display: grid; gap: 8px; }
+.pal-row { display: grid; grid-template-columns: 92px 1fr; gap: 8px; align-items: center; font-size: 13px; }
+.sw { display: flex; flex-wrap: wrap; gap: 3px; }
+.sw span { width: 22px; height: 22px; border: 1px solid #ffffff22; }
+
+/* filtros */
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); padding-block: 14px 12px; margin-top: 22px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.frow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.flabel { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); width: 74px; flex: none; }
+.chip { font: 500 13px var(--f-body); color: var(--dim); background: var(--panel); border: 1px solid var(--line); padding: 5px 11px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.chip:hover { color: var(--fg); border-color: var(--faint); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chip[aria-pressed="true"] { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+.chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--fg)); }
+.chip .ct { font-family: var(--f-mono); font-size: 11px; opacity: 0.7; font-variant-numeric: tabular-nums; }
+#q { font: 14px var(--f-body); color: var(--fg); background: var(--panel); border: 1px solid var(--line); padding: 6px 10px; min-width: 0; flex: 1 1 200px; max-width: 340px; }
+#q:focus-visible { outline: 2px solid var(--accent); }
+.status { font-family: var(--f-mono); font-size: 12px; color: var(--dim); }
+
+/* fichas */
+.group { margin-top: 30px; }
+.group-h { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.group-h .gname { font-family: var(--f-display); font-size: 21px; letter-spacing: 0.04em; }
+.group-h .gsub { font-family: var(--f-mono); font-size: 12px; color: var(--faint); letter-spacing: 0.08em; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); margin-top: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--c, var(--line)); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.card-top { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 12px; align-items: start; }
+.prev { width: 96px; height: 72px; background: var(--panel-2); display: block; image-rendering: pixelated; }
+.card h3 { font-size: 17px; letter-spacing: 0.02em; line-height: 1.2; }
+.card .sub { color: var(--dim); font-size: 13px; margin-top: 2px; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+.tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 6px; border: 1px solid var(--line); color: var(--dim); }
+.tag.p1 { color: var(--bg); background: var(--amber); border-color: var(--amber); }
+.tag.p2 { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 50%, transparent); }
+.tag.p3 { color: var(--faint); }
+.card-body { padding: 0 12px 12px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card-body p { margin: 0; font-size: 14px; }
+.kv { display: grid; grid-template-columns: 92px 1fr; gap: 2px 8px; font-size: 13px; }
+.kv dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); padding-top: 2px; }
+.kv dd { margin: 0; color: var(--dim); min-width: 0; overflow-wrap: anywhere; }
+.kv dd code { font-family: var(--f-mono); font-size: 12px; color: var(--accent); }
+.vars { margin: 0; padding-left: 16px; color: var(--dim); font-size: 13px; }
+.vars li { margin: 1px 0; }
+.empty { color: var(--dim); padding: 40px 0; text-align: center; }
+.pr { display: grid; gap: 6px; border-top: 1px dashed var(--line); padding-top: 9px; }
+.pr-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.copy { font: 600 13px var(--f-body); color: var(--bg); background: var(--accent); border: 0; padding: 6px 12px; cursor: pointer; }
+.copy:hover { filter: brightness(1.1); }
+.copy:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.copy.ok { background: var(--sint); }
+.check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--dim); cursor: pointer; user-select: none; }
+.check input { width: 16px; height: 16px; accent-color: var(--sint); cursor: pointer; margin: 0; }
+.check input:disabled { cursor: default; }
+.check.mine input { accent-color: var(--hondo); }
+.check.on { color: var(--fg); }
+.card.integrada { border-top-color: var(--hondo); }
+.card.integrada .prev { outline: 1px solid var(--hondo); }
+.tot.prog b.ok { color: var(--sint); }
+.tot.prog b.int { color: var(--hondo); }
+.pr details summary { cursor: pointer; font-family: var(--f-mono); font-size: 12px; color: var(--dim); }
+.pr details summary:focus-visible { outline: 2px solid var(--accent); }
+.pr textarea { width: 100%; min-height: 150px; resize: vertical; font: 12px/1.45 var(--f-mono); color: var(--fg); background: var(--panel-2); border: 1px solid var(--line); padding: 8px; margin-top: 6px; }
+@media (max-width: 520px) { .flabel { width: 100%; } .card-top { grid-template-columns: 72px 1fr; } .prev { width: 72px; height: 54px; } .kv { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Encargo de pixel art · versión 1 · 19/11/2026</div>
+    <h1>Biblia de arte de La Jornada</h1>
+    <div class="depth">CAPA 01 → CAPA 05 · −0 M → −15.000 M → ∞</div>
+    <p class="lead">Todo lo que el juego necesita dibujado, con sus variantes. Cada ficha dice qué dibujar, el tamaño, las animaciones y la <b>clave de sprite</b> con la que el programador lo enchufa. El juego ya funciona con formas geométricas; cada pieza que llegue sustituye a su forma sin tocar la lógica. Filtra por mundo, capa, tipo o prioridad.</p>
+    <div class="totals" id="totals"></div>
+  </header>
+
+  <details class="spec" id="spec">
+    <summary>Especificaciones técnicas, paletas y entrega</summary>
+    <div class="spec-body">
+      <section>
+        <h3>Dónde se ve</h3>
+        <p>El juego vive sobre todo en una <b>franja transparente de ~110 px de alto</b> encima de las apps del usuario (se puede poner entre 60 y 240 px), y además en un panel grande. En la franja el Descensor mide unos 30 px. Las siluetas tienen que leerse a ese tamaño y sobre cualquier fondo: contorno oscuro de 1 px y un punto brillante (ojo, visor, farol) en cada personaje.</p>
+        <p>Tono: <b>maravilla e inquietud</b>. Lo bello y lo peligroso van juntos. Nada chistoso. Mundo original: ningún diseño puede recordar a personajes, criaturas o logos de obras existentes.</p>
+      </section>
+      <section>
+        <h3>Tamaños de lienzo (rejilla 1×)</h3>
+        <div class="tbl-wrap"><table class="sz">
+          <tr><th>Pieza</th><th>Celda</th><th>Notas</th></tr>
+          <tr><td>Descensor y chasis</td><td class="n">24×32</td><td>Pies centrados abajo</td></tr>
+          <tr><td>Compañeros</td><td class="n">20×28</td><td>Algo menores que el héroe</td></tr>
+          <tr><td>Criaturas</td><td class="n">24×24</td><td>Voladoras: 24×20</td></tr>
+          <tr><td>Élites y Umbral menor</td><td class="n">48×48</td><td>El juego hoy escala ×1,9–2,3</td></tr>
+          <tr><td>Jefes de era</td><td class="n">80×80</td><td>Hasta 96×96</td></tr>
+          <tr><td>Mascotas</td><td class="n">12×12</td><td></td></tr>
+          <tr><td>Módulos de la Base</td><td class="n">32×24</td><td>3 estados de nivel</td></tr>
+          <tr><td>Fondo lejano / medio / cercano</td><td class="n">384 / 256 / 192 de ancho</td><td>Tiras repetibles en horizontal, 180 px de alto</td></tr>
+          <tr><td>Cornisa (suelo)</td><td class="n">64×32</td><td>Repetible</td></tr>
+          <tr><td>Iconos (modificadores, sucesos)</td><td class="n">8×8 y 16×16</td><td></td></tr>
+        </table></div>
+      </section>
+      <section>
+        <h3>Animaciones</h3>
+        <ul>
+          <li><b>Descensor:</b> reposo 4 · correr 6 · estocada 3 · herido 1 · caer (se deshace en luz) 6 · reaparecer 4.</li>
+          <li><b>Compañeros:</b> reposo 4 · correr 6.</li>
+          <li><b>Criaturas:</b> reposo o flotar 4 · atacar 3 · herido 1. La muerte la hace el juego con partículas.</li>
+          <li><b>Jefes:</b> reposo 4 · atacar 4 · herido 1 · derrota 6.</li>
+          <li><b>Módulos de la Base:</b> 2 fotogramas de luz o humo en bucle.</li>
+          <li>Destellos de daño, tintes (antiguo, holograma, malla), reflejos, giros y escalas los hace el código: no hace falta dibujarlos.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Entrega</h3>
+        <ul>
+          <li>PNG con transparencia, sin suavizado. Una hoja por pieza y animación, fotogramas en horizontal y todos con la misma celda.</li>
+          <li>Nombre de archivo: <code>&lt;clave&gt;_&lt;animación&gt;.png</code>, por ejemplo <code>familia_perro_chapa_atacar.png</code>.</li>
+          <li>Punto de anclaje: centro de los pies (o centro del cuerpo en las voladoras).</li>
+          <li>Orden recomendado: prioridad <b>Imprescindible</b> (el juego ya lo dibuja), luego <b>Escenas</b> (ya dibujadas en código) y por último <b>Opcional</b> (hoy solo es texto).</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Paletas por corriente</h3>
+        <div class="pal" id="palettes"></div>
+      </section>
+    </div>
+  </details>
+
+  <div class="filters" role="region" aria-label="Filtros">
+    <div class="frow" id="f-mundo"><span class="flabel">Mundo</span></div>
+    <div class="frow" id="f-capa"><span class="flabel">Capa</span></div>
+    <div class="frow" id="f-tipo"><span class="flabel">Tipo</span></div>
+    <div class="frow" id="f-prio"><span class="flabel">Prioridad</span><input id="q" type="search" placeholder="Buscar: garza, puerta, Neón…" aria-label="Buscar pieza"><span class="status" id="status"></span></div>
+    <div class="frow" id="f-estado"><span class="flabel">Estado</span><span class="status" id="db-status">Cargando el progreso…</span></div>
+  </div>
+
+  <main id="list"></main>
+</div>
+
+<script>
+// ---------- mundos, capas, tipos ----------
+const MUNDOS = {
+  N: { n: 'Neón', c: '#ff3fa4', d: 'Cyberpunk oscuro: ciudad vertical podrida, lluvia, hologramas.' },
+  S: { n: 'Sintética', c: '#b6ff3f', d: 'Brutalismo gráfico: megaestructuras impecables, señalética, silencio.' },
+  A: { n: 'Abismal', c: '#3fe0b0', d: 'Maravilla natural: bosques hacia abajo, bioluminiscencia, belleza que mata.' },
+  H: { n: 'Lo Hondo', c: '#b48cff', d: 'Desde −15.000 m: una sub-capa con nombre por hora, cada una con su mecánica.' },
+  C: { n: 'Común', c: '#cfd6e3', d: 'Aparece en cualquier corriente.' },
+};
+const CAPAS = { 1: 'I · El Brocal', 2: 'II · Los Andamios', 3: 'III · El Bosque Invertido', 4: 'IV · La Necrópolis', 5: 'V · Lo Hondo' };
+const TIPOS = { pj: 'Personajes', cr: 'Criaturas', je: 'Jefes y élites', es: 'Escenarios', ba: 'Base Colgante', su: 'Escenas de sucesos', ma: 'Marcas y variantes' };
+const PRIOS = { 1: 'Imprescindible', 2: 'Escenas y extras', 3: 'Opcional' };
+
+const PAL = {
+  N: ['#151a3a', '#10142c', '#171c3a', '#20264a', '#1c1f33', '#3a3f66', '#ff3fa4', '#3fe0e6', '#ffb347', '#ffd27a'],
+  S: ['#2a2c2e', '#26292b', '#303437', '#3c4145', '#2e3236', '#8a9196', '#b6ff3f', '#e8e6df', '#ff7a1a'],
+  A: ['#0f2a28', '#0d221f', '#123029', '#173a31', '#1a2b22', '#3f6b4f', '#3fe0b0', '#d8c27a', '#9f7aff'],
+  H: ['#07080d', '#141a22', '#0d1026', '#1f0a12', '#0a2830', '#1a140f', '#26050c', '#9fd8ff', '#ff9ab0', '#e8dcc0', '#ff4d5e'],
+};
+
+// ---------- el catálogo ----------
+// t: tipo · w: mundo · c: capa (0 = todas) · p: prioridad · k: clave de sprite · sh: vista previa
+const I = [];
+const add = (o) => I.push({ c: 0, p: 1, vars: [], ...o });
+const CH = { N: 'Neón', S: 'Sintética', A: 'Abismal' };
+
+// Personajes
+add({ t: 'pj', w: 'C', n: 'El Descensor', v: 'El héroe de cada jornada', k: 'hero', sh: 'hero', col: '#3fe0e6',
+  d: 'Explorador mitad humano, mitad sintético. Cuerpo compacto, visor en la cara y bufanda larga que ondea hacia atrás al correr y toma el color de la corriente del día. Arma de estocada corta. Es pequeño frente al vacío: tiene que leerse como una silueta valiente.',
+  vars: ['Bufanda y visor en magenta (Neón), verde ácido (Sintética) o turquesa (Abismal)', 'Hasta 12 marcas de Mutación sobre el torso (ver «Mutaciones»)', 'Fantasma translúcido azulado: «El Descensor de Ayer» (lo tiñe el código)'],
+  tam: '24×32', anim: 'reposo 4 · correr 6 · estocada 3 · herido 1 · caer 6 · reaparecer 4' });
+[
+  ['sabueso', 'N', 'Chasis Sabueso', 'Dispara ráfagas a distancia.', 'Brazo-cañón ligero y antena de rastreo; postura de tirador.'],
+  ['ganzua', 'N', 'Chasis Ganzúa', 'Manos rápidas: a veces el botín sale doble.', 'Delgado, guantes con ganzúas y bolsillos por todas partes; capucha.'],
+  ['monolito', 'S', 'Chasis Monolito', 'Tanque: aguanta y devuelve los golpes.', 'Placas de hormigón pulido y franjas de seguridad naranjas; ancho y lento.'],
+  ['eco', 'S', 'Chasis Eco', 'Acumula carga y la suelta en un golpe.', 'Bobinas en la espalda que se encienden con la carga; líneas limpias, blanco hueso.'],
+  ['raiz', 'A', 'Chasis Raíz', 'Se cura al matar.', 'Fibras vegetales entre las juntas sintéticas; pequeñas hojas que brillan.'],
+  ['brasa', 'A', 'Chasis Brasa', 'Arde por dentro: pega más, aguanta menos.', 'Grietas incandescentes en el pecho y los brazos; humo leve.'],
+].forEach(([id, w, n, hab, look]) => add({ t: 'pj', w, n, v: hab, k: `hero_${id}`, sh: 'hero', col: MUNDOS[w].c,
+  d: `${look} Es el mismo Descensor con otro cuerpo: se elige al empezar el día.`, vars: ['Mismas animaciones que el Descensor base'], tam: '24×32', anim: 'como el Descensor' }));
+
+const COMP = [
+  ['grom', 'Grom, el Herrero Errante', 'Fuego, Mecánico', 'Absorbe golpes y remienda el equipo en marcha.', 'Grom, Maestro de la Fragua Colgante', 'Corpulento, delantal de cuero, martillo al hombro.'],
+  ['lysa', 'Lysa, Sanadora del Alba', 'Sagrado, Marino', 'Cose heridas con hilo de luz.', 'Lysa, Voz del Amanecer', 'Túnica clara, carrete de hilo luminoso.'],
+  ['pip', 'Pip, Ratero de Cornisa', 'Sombra, Bestia', 'Encuentra moneda donde nadie miró.', 'Pip, Príncipe de los Bolsillos', 'Pequeño, orejas grandes, saco de monedas.'],
+  ['vesna', 'Vesna, Tiradora de Azotea', 'Mecánico, Sombra', 'Un disparo, un hueco en la niebla.', 'Vesna, Ojo del Brocal', 'Rifle largo, gafas de mira, abrigo.'],
+  ['orun', 'Orun, Portador del Farol', 'Sagrado, Fuego', 'Su farol no alumbra lejos, pero nunca se apaga.', 'Orun, Llama que Baja', 'Viejo, farol en alto que ilumina su cara.'],
+  ['ilka', 'Ilka, Buceadora de Niebla', 'Marino, Hielo', 'Nada en la niebla como otros caminan.', 'Ilka, Corriente Fría', 'Traje de buceo ligero, aletas en los tobillos.'],
+  ['tarsis', 'Tarsis, Centinela Desertor', 'Cristal, Arcano', 'Dejó su puesto. Conserva el escudo.', 'Tarsis, Prisma Libre', 'Centinela geométrico con un escudo de cristal; uniforme roto.'],
+  ['mu', 'Mu, la Jardinera Ciega', 'Veneno, Bestia', 'Conoce cada flor por lo que duele.', 'Mu, Madre de Espinas', 'Venda en los ojos, regadera, enredaderas en los brazos.'],
+  ['kestrel', 'Kestrel, Cartógrafa de Cables', 'Mecánico, Arcano', 'Sus mapas caducan cada noche. Los dibuja igual.', 'Kestrel, la que Recuerda la Ruta', 'Rollos de mapa a la espalda, cables enrollados.'],
+  ['brasa', 'Brasa, Niño del Horno', 'Fuego, Veneno', 'Ríe poco. Quema mucho.', 'Brasa, Corazón de Horno', 'Niño con mono de fogonero y brasas en las manos.'],
+  ['nix', 'Nix, Sombra Alquilada', 'Sombra, Hielo', 'Trabaja por contrato. El contrato eres tú.', 'Nix, Sombra Propia', 'Figura delgada, casi solo silueta, ojos fríos.'],
+  ['odalis', 'Odalis, Marea Quieta', 'Marino, Cristal', 'Nada la mueve. Todo la rodea.', 'Odalis, Marea Alta', 'Serena, vestido que gotea, conchas de cristal.'],
+  ['fenn', 'Fenn, Domador de Polillas', 'Bestia, Fuego', 'Sus polillas van primero. Vuelven casi todas.', 'Fenn, Señor del Enjambre Tibio', 'Polillas pequeñas alrededor de la cabeza.'],
+  ['hueso', 'Hueso, Monje del Eco', 'Sagrado, Arcano', 'Reza hacia abajo. A veces contestan.', 'Hueso, el que Oyó Respuesta', 'Hábito largo, cuentas de hueso, capucha.'],
+  ['sal', 'Sal, Recolectora de Escarcha', 'Hielo, Cristal', 'Raspa el frío de las paredes y lo vende.', 'Sal, Dueña del Invierno Pequeño', 'Rascador y frascos de escarcha en el cinturón.'],
+  ['quill', 'Quill, Archivista Tóxico', 'Veneno, Hielo', 'Cataloga venenos. Los prueba en sí mismo.', 'Quill, Índice Viviente', 'Fichero colgado, manchas verdes en los dedos.'],
+];
+COMP.forEach(([id, n, tags, txt, evo, look]) => add({ t: 'pj', w: 'C', n, v: txt, k: `comp_${id}`, sh: 'comp', col: '#cfd6e3',
+  d: `${look} Sigue al Descensor detrás de él. Etiquetas: ${tags} (los colores de esas etiquetas sirven de pista para la paleta).`,
+  vars: [`Normal`, `Evolucionado: «${evo}» (más grande, contorno brillante)`], tam: '20×28', anim: 'reposo 4 · correr 6' }));
+
+[['Polilla Farol', 'Alumbra el punto débil.'], ['Rata de Cable', 'Roba moneda de los bolsillos caídos.'], ['Cangrejo de Bolsillo', 'Se interpone. Aguanta.'], ['Dron Colibrí', 'Pica al enemigo entre golpe y golpe.'], ['Brote Andante', 'Su savia cierra heridas.'], ['Chispa Errante', 'Aviva cada golpe.'], ['Prisma Vivo', 'Devuelve parte de lo que recibe.'], ['Sombra Mansa', 'Señala dónde duele más.']]
+  .forEach(([n, txt], i) => add({ t: 'pj', w: 'C', c: 3, p: 3, n, v: 'Mascota del Criadero', k: `mascota_${i + 1}`, sh: 'pet', col: '#ffd27a',
+    d: `${txt} Criatura diminuta y amable que nace en la Base. Hoy solo aparece en el panel; con arte podría revolotear junto al Descensor.`, vars: ['Niveles 1–10 (opcional: un detalle más cada 5 niveles)'], tam: '12×12', anim: 'flotar 4' }));
+
+const NPC = [
+  ['Mercader de Paraguas', 'N', 'Vendedor ambulante bajo un paraguas lleno de neones; vende una mejora a mitad de precio.'],
+  ['Descensor Perdido', 'C', 'Otro explorador desorientado, equipo gastado; se une 10 min.'],
+  ['La Niña del Farol', 'A', 'Niña con un farol que ilumina el camino; mirada tranquila e inquietante.'],
+  ['Cuerpo de Repuesto', 'S', 'Cuerpo sintético vacío en una camilla de pie: el héroe se cambia a él.'],
+  ['Predicador del Borde', 'N', 'Hombre con un altavoz roto y carteles; bendice o maldice al azar.'],
+  ['Expedición Rival', 'C', 'Tres descensores de otra compañía corriendo; uniforme distinto.'],
+  ['Eco de un Descensor Caído', 'C', 'Fantasma que pelea a tu lado y deja su placa.'],
+  ['El Coleccionista sin Rostro', 'S', 'Figura alta sin cara, con vitrinas abiertas en el abrigo.'],
+  ['Contrabandista de Recuerdos', 'N', 'Gabardina con frascos de luz que contienen recuerdos.'],
+  ['La Archivista', 'S', 'Mujer entre cajones infinitos; revela combos secretos.'],
+  ['Vendedor de Mapas Falsos', 'N', 'Rollos de mapas que no coinciden entre sí; sonrisa demasiado ancha.'],
+  ['Ermitaño de la Pared', 'A', 'Anciano que vive incrustado en la roca, cubierto de musgo.'],
+  ['El Rival', 'C', 'Descensor rival de la cadena «El Rival»: aparece cada 2 h más fuerte y pelea un duelo final a las 12:00.'],
+  ['El Niño de Hojalata', 'C', 'Pequeño robot perdido (cadena): resulta ser la llave de una puerta en Lo Hondo.'],
+  ['El Huésped', 'S', 'Cuerpo vacío que sigue al grupo sin pelear y aprende habilidades (cadena).'],
+];
+NPC.forEach(([n, w, d]) => add({ t: 'pj', w, p: 3, n, v: 'Personaje de suceso o cadena', k: `npc_${n.toLowerCase().replace(/[^a-záéíóúñ]+/g, '_')}`, sh: 'npc', col: MUNDOS[w].c,
+  d: `${d} Hoy solo aparece como texto en el aviso del suceso.`, vars: ['Retrato 32×32 para el aviso', 'Opcional: sprite en escena 24×32'], tam: '24×32 / retrato 32×32', anim: 'reposo 2' }));
+
+// Criaturas
+const FAM = [
+  ['dron_sabueso', 'Dron Sabueso', 'N', 'Mecánico', 'triangulo', 1, 'Dron de seguridad con morro de perro y un foco rojo; ataca a distancia.'],
+  ['chatarrero', 'Chatarrero Aumentado', 'N', 'Sombra', 'cuadrado', 0, 'Carroñero encorvado con prótesis soldadas y chatarra a la espalda.'],
+  ['enjambre_cables', 'Enjambre de Cables', 'N', 'Mecánico', 'cruz', 1, 'Nube de cables vivos que se retuercen y sueltan chispas.'],
+  ['perro_chapa', 'Perro de Chapa', 'N', 'Mecánico', 'cuadrado', 0, 'Perro mecánico de chapa remachada, cola de cable y ojos de piloto.'],
+  ['centinela_prisma', 'Centinela Prisma', 'S', 'Cristal', 'rombo', 0, 'Centinela geométrico de hormigón y vidrio, un único ojo-láser.'],
+  ['cuerpo_vacio', 'Cuerpo Vacío', 'S', 'Arcano', 'cuadrado', 0, 'Cuerpo de repuesto reactivado, sin rostro, con etiqueta de inventario.'],
+  ['glitch_errante', 'Glitch Errante', 'S', 'Arcano', 'cruz', 1, 'Forma geométrica que se descompone en píxeles desplazados; ataque a media distancia.'],
+  ['constructo_luz', 'Constructo de Luz', 'S', 'Cristal', 'triangulo', 1, 'Triángulo de luz sólida con alas de líneas; ataca desde lejos.'],
+  ['polilla_ceniza', 'Polilla de Ceniza', 'A', 'Bestia', 'triangulo', 1, 'Polilla grande de alas grises con ojos dorados; deja caer ceniza.'],
+  ['lirio_dentado', 'Lirio Dentado', 'A', 'Veneno', 'circulo', 0, 'Flor carnívora con dientes; los pétalos se abren para morder.'],
+  ['garza_vacio', 'Garza del Vacío', 'A', 'Bestia', 'rombo', 1, 'Garza esbelta de patas larguísimas; su pico dispara luz desde lejos.'],
+  ['cangrejo_relicario', 'Cangrejo Relicario', 'A', 'Marino', 'circulo', 0, 'Cangrejo que lleva una pequeña ruina o relicario como concha.'],
+];
+FAM.forEach(([id, n, w, tag, forma, vuela, d]) => add({ t: 'cr', w, n, v: `${tag}${vuela ? ' · vuela' : ''}`, k: `familia_${id}`, sh: 'cr', forma, vuela, col: MUNDOS[w].c,
+  d: `${d} Debe mirar a la izquierda (hacia el Descensor). Aparece en todas las capas de su corriente y, en Lo Hondo, mezclada con las otras.`,
+  vars: ['Base', 'Híbrido: mitad de otra corriente (el juego mezcla nombre y color; ideal: un recambio de paleta por corriente, 3 en total)', 'Gigante y Colosal: el juego la escala ×1,5', 'Fragmento (al dividirse): escala ×0,7', 'Versión «Umbral menor» opcional (48×48, más amenazante)'],
+  tam: vuela ? '24×20' : '24×24', anim: vuela ? 'flotar 4 · atacar 3 · herido 1' : 'reposo 4 · atacar 3 · herido 1' }));
+
+// Jefes de era (uno por corriente)
+const JEFES = [
+  [1, 'El Portero', { N: ['Grúa de Seguridad', 'Grúa portuaria que cobra vida, garfio como mano.'], S: ['Torre de Medición', 'Torre de instrumentos con antenas que miden y castigan.'], A: ['Garza Anciana', 'Garza gigantesca, plumas grises como piedra.'] }],
+  [2, 'La Grúa Viva', { N: ['Excavadora Poseída', 'Excavadora con luces de neón por ojos, pala dentada.'], S: ['Andamio Consciente', 'Estructura de andamio que se reorganiza en un cuerpo.'], A: ['Nido-Madre', 'Nido enorme de ramas y huesos con un ave dentro.'] }],
+  [3, 'El Corazón del Bosque', { N: ['Servidor Raíz', 'Torre de servidores tomada por raíces y cables.'], S: ['Prisma Madre', 'Cristal madre del que nacen los árboles clonados.'], A: ['Árbol Madre', 'Tronco colosal que crece hacia abajo con un corazón de luz.'] }],
+  [4, 'El Guardián', { N: ['CEO Fantasma en su exoesqueleto', 'Ejecutivo espectral dentro de un exoesqueleto corporativo.'], S: ['Arquitecto Final', 'Figura geométrica con compás y escuadra como armas.'], A: ['Coloso Fosilizado', 'Gigante de piedra con fósiles incrustados.'] }],
+  [5, 'Umbral de Lo Hondo', { N: ['Eco de Neón', 'Eco de las criaturas de Neón, deformado por la profundidad.'], S: ['Eco Sintético', 'Eco geométrico, incompleto, que parpadea.'], A: ['Eco Abismal', 'Eco bioluminiscente de una bestia antigua.'] }],
+];
+JEFES.forEach(([capa, nombre, vs]) => ['N', 'S', 'A'].forEach((w) => add({ t: 'je', w, c: capa, n: vs[w][0], v: `${nombre} · fin de la capa ${CAPAS[capa]}`, k: `jefe_${capa}_${w}`, sh: 'boss', col: MUNDOS[w].c,
+  d: `${vs[w][1]} ${capa < 5 ? 'Cierra la capa: el Descensor cae contra él varias veces antes de derribarlo.' : 'Aparece cada 10 tramos en Lo Hondo.'} Hoy lleva un aura roja que late y una corona de púas: el arte puede integrarlas.`,
+  vars: ['Cartel «UMBRAL A LA VISTA»: retrato 48×48 opcional'], tam: capa < 5 ? '80×80' : '64×64', anim: 'reposo 4 · atacar 4 · herido 1 · derrota 6' })));
+add({ t: 'je', w: 'C', c: 0, p: 2, n: 'Umbral menor', v: 'Cada 10 tramos en las capas I–IV', k: 'umbral_menor', sh: 'boss', col: '#ff4d5e',
+  d: 'Hoy es la criatura del tramo, en grande (×2,3), con corona y aura roja. Ideal: un adorno común (corona, armadura, cicatrices) que se ponga sobre cualquier criatura.', vars: ['Adorno común superpuesto', 'O una versión 48×48 por criatura (12)'], tam: '48×48', anim: 'como la criatura' });
+[
+  ['La Reina del Reflejo', 'El Mar de Mercurio', 'Reina de mercurio con su doble invertido pegado a los pies.'],
+  ['El Satélite Hundido', 'La Zona Sin Gravedad', 'Satélite antiguo, paneles rotos, que gira sin peso.'],
+  ['El Capataz', 'La Fábrica de Capas', 'Supervisor con casco y megáfono, mitad máquina de obra.'],
+  ['El Alcalde de Polvo', 'La Ciudad Original', 'Alcalde de la ciudad antigua, traje de época hecho polvo.'],
+  ['Lo Que Escribe el Mundo', 'La Frontera de Ruido', 'Mano o pluma colosal hecha de glitch que dibuja la realidad.'],
+].forEach(([n, sub, d]) => add({ t: 'je', w: 'H', c: 5, n, v: `Umbral de sub-capa · ${sub}`, k: `umbral_${n.toLowerCase().replace(/[^a-z]+/g, '_')}`, sh: 'boss', col: '#b48cff', d: `${d} Aparece hacia el minuto 50 de su hora.`, tam: '64×64', anim: 'reposo 4 · atacar 4 · herido 1 · derrota 6' }));
+add({ t: 'je', w: 'H', c: 5, n: 'Costilla del Gigante', v: 'Puerta de Los Huesos del Gigante · cada 5 tramos', k: 'costilla', sh: 'boss', col: '#e8dcc0',
+  d: 'No es una criatura: dos costillas que se cruzan en arco con una membrana viva como puerta y un ojo en la clave. La membrana se apaga a medida que cede.', vars: ['Membrana entera / a media vida / rota'], tam: '48×64', anim: 'latido de la membrana 4' });
+add({ t: 'je', w: 'H', c: 5, p: 2, n: 'Umbrales de los Ciclos Invertidos', v: 'El Custodio · La Madre · El Coro · La Sombra · El Testigo · La Puerta · El Heraldo · La Marea', k: 'umbral_ciclo_<nombre>', sh: 'boss', col: '#b48cff',
+  d: 'Desde la hora 16, cada hora genera un Umbral procedural con uno de estos 8 nombres. Figuras simbólicas y extrañas, más abstractas que las criaturas.', vars: ['8 diseños'], tam: '64×64', anim: 'reposo 4 · atacar 4' });
+[
+  ['Cazador de Descensores', 'N', 'Mini-jefe que persigue al grupo y reaparece: gabardina, arpón y luces rojas.'],
+  ['Depredador del Techo', 'A', 'Bestia que cae desde arriba; si muere, deja una mascota rara.'],
+  ['Criatura Dorada', 'C', 'Cualquier criatura bañada en oro que huye corriendo.'],
+  ['El Gigante Dormido', 'A', 'Gigante tumbado sobre el que pasa el camino; si despierta, es un Umbral.'],
+  ['Umbral Errante', 'C', 'Un Umbral que vaga fuera de su sitio.'],
+  ['Guardián del Santuario', 'A', 'Guardián de la cadena «La Procesión»: pone a prueba al grupo.'],
+  ['Cobradores de la Deuda', 'N', 'Dos matones de la cadena «La Deuda», trajes y porras eléctricas.'],
+  ['El Rival, por última vez', 'C', 'El duelo final de la cadena «El Rival».'],
+].forEach(([n, w, d]) => add({ t: 'je', w, p: 2, n, v: 'Élite de suceso o cadena', k: `elite_${n.toLowerCase().replace(/[^a-záéíóúñ]+/g, '_')}`, sh: 'elite', col: '#ffb347', d: `${d} Hoy usa la forma de una criatura en grande con corona ámbar.`, tam: '48×48', anim: 'reposo 4 · atacar 3 · herido 1' }));
+
+// Escenarios: capas I–IV × corriente
+const ESC = {
+  1: { N: ['Muelles de carga y mercado negro en el borde', 'Grúas, contenedores, toldos con neones, charcos con reflejos.'], S: ['Plataformas de medición abandonadas', 'Plataformas limpias, instrumentos gigantes, números enormes pintados.'], A: ['Primeros jardines colgantes del borde', 'Macetas y enredaderas que cuelgan hacia el vacío, primeras luciérnagas.'] },
+  2: { N: ['Favelas verticales y fábricas que gotean', 'Casas apiladas en la pared, tuberías, vapor, carteles parpadeantes.'], S: ['Andamios de una construcción infinita', 'Andamios perfectos que se repiten sin fin, señales de seguridad.'], A: ['Nidos de aves en acantilados de niebla', 'Acantilados con nidos enormes, bancos de niebla, plumas.'] },
+  3: { N: ['Bosque invadido por cables y granjas de datos', 'Troncos cubiertos de cables y racks de servidores entre las raíces.'], S: ['Árboles de cristal clonados en serie', 'Filas idénticas de árboles de cristal, numerados.'], A: ['Árboles gigantes que crecen hacia abajo', 'Copas colgando desde arriba, luz verde-dorada filtrada, lianas con frutos de luz.'] },
+  4: { N: ['Ciudad corporativa hundida, todavía encendida', 'Rascacielos de oficinas inclinados, ventanas aún encendidas, logos apagados (originales).'], S: ['Ciudad antigua perfecta, sin habitantes y vigilada', 'Avenidas impecables, monumentos geométricos, cámaras en cada esquina.'], A: ['Ruinas fosilizadas de una civilización tragada', 'Columnas y estatuas convertidas en roca, musgo, huesos enormes.'] },
+};
+Object.entries(ESC).forEach(([capa, vs]) => ['N', 'S', 'A'].forEach((w) => add({ t: 'es', w, c: +capa, n: `${CAPAS[capa].split(' · ')[1]} · ${CH[w]}`, v: vs[w][0], k: `fondo_${capa}_${w}`, sh: 'scene', pal: w, col: MUNDOS[w].c,
+  d: `${vs[w][1]} Cuanto más hondo, más oscuro: las paredes se apagan y las luces (ventanas, bioluminiscencia, neón) pasan a ser lo que más se ve.`,
+  vars: ['Capa lejana (parallax lento), capa media y capa cercana, repetibles en horizontal', 'Cornisa por la que corre el Descensor (material de la corriente)', 'Partículas de ambiente: lluvia (Neón), polvo (Sintética), esporas (Abismal)', 'Versión con huecos (algunas casillas vacías dejan ver el vacío)'],
+  tam: '3 tiras de 180 px de alto + cornisa 64×32', anim: 'luces que parpadean 2–4' })));
+add({ t: 'es', w: 'C', c: 1, p: 3, n: 'El borde de la Grieta', v: 'Inicio del día: el salto al vacío', k: 'fondo_borde', sh: 'scene', pal: 'N', col: '#cfd6e3',
+  d: 'La megaciudad sin cielo alrededor de la boca de la Grieta; el Descensor salta desde el borde. Pieza para la animación de inicio.', tam: '384×180', anim: 'salto 8' });
+add({ t: 'es', w: 'H', c: 5, n: 'Lo Hondo · siluetas gigantes', v: 'Fondo común a todas las sub-capas', k: 'fondo_hondo_gigantes', sh: 'scene', pal: 'H', col: '#b48cff',
+  d: 'Siluetas colosales a lo lejos, con ojos que brillan: un arco de megaestructura (Neón), una esfera perfecta (Sintética) y una bestia que cruza el vacío (Abismal).', vars: ['3 siluetas, una por corriente'], tam: '384×180', anim: 'ojos 2' });
+const SUBS = [
+  ['El Mar de Mercurio', 'Reflejos', 'Suelo de mercurio liso donde todo se refleja invertido; horizonte plateado que tiembla; paleta gris azulada.', 'Suelo espejo (el reflejo lo hace el código)'],
+  ['La Catedral de Estática', 'Carga', 'Agujas góticas con orbes eléctricos y arcos de estática entre ellas; relámpagos a lo lejos; azul eléctrico y violeta.', 'Rayo del estallido de carga (sprite de 3 fotogramas)'],
+  ['El Jardín que Respira', 'Respiración', 'Paredes orgánicas con alveolos que se hinchan y se vacían; suelo de piel con venas; rosa carne y verde.', 'Alveolos en 3 tamaños'],
+  ['La Zona Sin Gravedad', 'Flotación', 'Vacío casi espacial, islas de roca flotando, cascotes que suben girando; azul noche.', 'Cascotes flotantes (4 piezas)'],
+  ['El Archivo de los Ahogados', 'Recuerdos', 'Archivo sumergido: estanterías, papeles a la deriva, burbujas, luz de superficie que ondula; verde azulado.', 'Orbe de Recuerdo (luz pálida que suelta cada baja)'],
+  ['La Fábrica de Capas', 'Ensamblaje', 'Andamios, grúas que bajan bloques de las tres corrientes, plano de obra cuadriculado; mezcla de las tres paletas.', 'Criaturas «sin terminar»: el código las dibuja en malla'],
+  ['Los Huesos del Gigante', 'Escalada', 'Por dentro de un esqueleto colosal: costillas que arquean por encima, columna en el techo, suelo de hueso.', 'Costillas en 2 tamaños para el parallax'],
+  ['La Ciudad Original', 'Déjà vu', 'La megaciudad de arriba, antigua e intacta: frontones, farolas de gas, cables de tranvía, sol viejo; sepia.', 'Criaturas del Brocal en versión antigua (el código las tiñe de sepia)'],
+  ['El Latido', 'Pulso', 'Paredes con venas que se encienden con cada latido y un resplandor rojo al fondo; rojo oscuro.', 'Venas (2 variantes)'],
+  ['La Frontera de Ruido', 'Glitch', 'Paleta violeta y magenta con interferencias, bloques de ruido y nombres corruptos.', 'Bloques de ruido (opcional: tiles «rotos»)'],
+  ['El Fondo', 'Calma', 'Luz y silencio: haces anchos de luz blanca, motas que suben, suelo que brilla; el fondo es un cielo.', 'Cinemática opcional «el fondo es un cielo» (15:30)'],
+];
+SUBS.forEach(([n, mec, d, extra], i) => add({ t: 'es', w: 'H', c: 5, n, v: `Sub-capa de la hora ${5 + i} · mecánica ${mec}`, k: `fondo_sub_${i + 5}`, sh: 'scene', pal: 'H', col: '#b48cff',
+  d: `${d} Hoy ya se ve así con formas geométricas: el arte puede seguir esa lectura.`, vars: ['3 capas de parallax + cornisa propia', extra], tam: '3 tiras de 180 px + cornisa', anim: 'según la mecánica' }));
+add({ t: 'es', w: 'H', c: 5, p: 2, n: 'Ciclos Invertidos', v: 'Desde la hora 16 · infinito', k: 'fondo_ciclo', sh: 'scene', pal: 'H', col: '#b48cff',
+  d: 'Todo al revés: el Descensor cae hacia arriba. Cada hora mezcla dos mecánicas anteriores y una paleta combinada. Reutiliza las sub-capas; el código las invierte.', vars: ['Opcional: 15 nombres procedurales con un detalle propio («El Pozo de los Relojes», «La Escalera de Vértebras»…)'], tam: 'reutiliza', anim: '—' });
+
+// Base Colgante
+const BASE = [
+  ['montacargas', 'Montacargas', 1, 'Baja detrás del Descensor y recoge lo que deja.'], ['almacen', 'Almacén de Chatarra', 2, 'Clasifica chatarra en Materiales.'], ['generador', 'Generador de Cable', 2, 'Toda la Base produce más.'], ['barracon', 'Barracón Colgante', 2, 'El grupo descansa y pega más fuerte.'], ['enfermeria', 'Enfermería de Lona', 2, 'Vendas, sueros y una cama que no se balancea.'], ['mercado', 'Mercado de la Pasarela', 2, 'Trueque entre cables.'], ['camara', 'Cámara de Descompresión', 2, 'Una hora dentro y el cuerpo olvida la hondura.'],
+  ['fragua', 'Fragua Suspendida', 3, 'Forja armas.'], ['taller_placas', 'Taller de Placas', 3, 'Monta armaduras.'], ['taller_lentes', 'Taller de Lentes', 3, 'Pule accesorios.'], ['destileria', 'Destilería de Esencia', 3, 'Destila Esencia de lo que gotea de la pared.'], ['criadero', 'Criadero de Nidos', 3, 'Nacen mascotas.'], ['taberna', 'Taberna del Último Peldaño', 3, 'Historias y caldo.'],
+  ['santuario', 'Santuario del Cable', 4, 'Concede bendiciones.'], ['osario', 'Osario de Ecos', 4, 'Escucha la ciudad hundida y guarda sus Ecos.'], ['torre_vigia', 'Torre de Vigía', 4, 'Ve venir los golpes.'], ['biblioteca', 'Biblioteca Colgante', 4, 'Catálogos de lo hallado.'],
+  ['sonda', 'Sonda del Vacío', 5, 'Baja sola hacia lo oscuro y vuelve con Fragmentos.'], ['ancla', 'Ancla del Abismo', 5, 'Clava la Base a la pared.'], ['forja_honda', 'Forja del Fondo', 5, 'Funde la chatarra de arriba en filos para lo hondo.'], ['faro', 'Faro de Lo Hondo', 5, 'Una luz que llega hasta el fondo.'],
+];
+BASE.forEach(([id, n, era, txt]) => add({ t: 'ba', w: 'C', c: era, n, v: txt, k: `edificio_${id}`, sh: 'mod', col: '#ffb347',
+  d: 'Módulo que cuelga de cables junto a los otros. La Base crece sola a lo largo del día y se ve al fondo de la escena y en la tira de la Base del panel.',
+  vars: ['Recién construido', 'Mejorado (nivel medio)', 'Nivel máximo', 'Icono 16×16 para la tira de la Base'], tam: '32×24', anim: 'luz o humo 2' }));
+add({ t: 'ba', w: 'C', c: 2, p: 2, n: 'Equipo fabricado', v: 'Arma · Armadura · Accesorio', k: 'equipo_<ranura>_<pieza>', sh: 'mod', col: '#ffb347',
+  d: 'Los talleres fabrican piezas: Cuchilla de Cable, Lanza de Andamio, Martillo de Remaches, Arpón de Niebla; Peto de Chapa, Capa de Lona Encerada, Coraza de Prisma, Arnés Reforzado; Lente de Aumento, Brújula Vertical, Monóculo de Cuarzo, Farol de Bolsillo.', vars: ['12 iconos 16×16', 'Opcional: el arma visible en la mano del Descensor'], tam: '16×16', anim: '—' });
+
+// Escenas de sucesos
+const SC = [
+  ['El Tren Fantasma', 'Rareza', 'Un tren iluminado recorre la pared del abismo con faro y estela; el grupo lo aborda (+10 tramos).', 'Locomotora + vagón repetible 64×24'],
+  ['La Ballena de Niebla', 'Rareza', 'Una ballena colosal y translúcida cruza el abismo; todo se detiene un minuto a mirarla. Después, bancos de niebla.', 'Ballena 160×56, cola animada 4'],
+  ['La Ciudad Espejo', 'Rareza', 'La megaciudad, invertida, cuelga del vacío durante 10 min; las criaturas se vuelven plateadas.', 'Skyline invertido repetible'],
+  ['El Teléfono de la Pared', 'Rareza', 'Un teléfono público suena en la roca; alguien contesta y sube una luz dorada (Artefacto legendario).', 'Cabina 24×40, auricular colgando'],
+  ['El Descensor de Ayer', 'Rareza', 'Tu héroe de ayer corre contigo, translúcido, 30 min. El código tiñe al Descensor; no hace falta arte propio.', '—'],
+  ['Lluvia de Placas', 'Rareza', 'Caen placas de Descensores olvidados y se leen sus nombres.', 'Placa 8×5 en 3 metales'],
+  ['La Puerta Pintada', 'Rareza', 'Una puerta de tiza se dibuja en la roca y se abre; al otro lado, una mini-capa violeta y dorada.', 'Puerta 32×48 (dibujándose 4, abriéndose 4) + paleta «pintada»'],
+  ['El Jardín de Relojes', 'Rareza', 'Relojes flotantes y un péndulo enorme; todo va despacio.', 'Relojes en 3 tamaños, péndulo'],
+  ['La Mirada', 'Rareza', 'Un ojo gigante se abre en la pared, sigue al Descensor, parpadea y se cierra.', 'Ojo 96×40: cerrado, entreabierto, abierto, iris'],
+  ['La Canción', 'Rareza', 'Las criaturas dejan de pelear y cantan: notas y ondas en el aire; después, un halo dorado.', 'Notas musicales 8×8 (3)'],
+  ['Apagón', 'Evento de capa · Neón', 'Oscuridad total: solo se ven ojos, neón y el visor del Descensor.', 'Carteles de neón (4) y ojos brillantes'],
+  ['Eclipse de Neón', 'Evento de capa · Neón', 'Un eclipse con corona de neón; los hologramas cobran vida y las criaturas se vuelven hologramas.', 'Eclipse 64×64, anuncios holográficos (4)'],
+  ['Marea Negra', 'Peligro · Lo Hondo', 'El vacío sube por la pared con zarcillos que buscan al Descensor; hay que correr.', 'Borde del vacío y zarcillos (4)'],
+  ['Luna Interior', 'Evento de capa · Abismal', 'Una luna enorme brilla en el fondo, vista desde arriba, con haces que suben.', 'Luna 128×128 con cráteres'],
+  ['Tormenta de Esporas', 'Evento de capa · Abismal', 'Esporas luminosas arrastradas por el viento.', 'Esporas (3 tamaños)'],
+];
+SC.forEach(([n, cat, d, pieza]) => {
+  const w = /Neón/.test(cat) ? 'N' : /Abismal/.test(cat) ? 'A' : /Hondo/.test(cat) ? 'H' : 'C';
+  add({ t: 'su', w, p: 2, n, v: cat, k: `escena_${n.toLowerCase().replace(/[^a-záéíóúñ]+/g, '_')}`, sh: 'event', col: cat.startsWith('Rareza') ? '#ffd27a' : MUNDOS[w].c, d: `${d} Ya está dibujada con formas en el código.`, vars: [pieza, 'Icono 16×16 para el aviso del suceso'], tam: 'ver piezas', anim: 'ver piezas' });
+});
+add({ t: 'su', w: 'C', p: 3, n: 'Iconos de los demás sucesos', v: '≈55 sucesos sin escena', k: 'icono_suceso_<id>', sh: 'event', col: '#3fe0e6',
+  d: 'Encuentros, clima, Base, compañeros, tesoros y peligros que hoy solo muestran un aviso arriba a la derecha y un tinte. Un icono por suceso haría ese aviso mucho más vistoso.', vars: ['Icono 16×16 por suceso', 'Opcional: tintes de clima (lluvia ácida, niebla viva, nieve de ceniza…)'], tam: '16×16', anim: '—' });
+
+// Marcas y variantes
+add({ t: 'ma', w: 'C', p: 2, n: 'Modificadores de criatura', v: '33 rasgos que se combinan con cualquier criatura', k: 'mod_<id>', sh: 'swatch', col: '#ff3fa4',
+  d: 'Hoy cada modificador es un punto de color sobre la criatura. Con arte: un icono pequeño y, si se puede, un detalle superpuesto (púas, armadura, brillo).',
+  vars: ['Desde el tramo: Gigante, Veloz, Venenoso, Acorazado, Explosivo, Cristalino, Regenerador, Divisor, Dorado, Ancestral, Mutado, Oxidado, Blindado, Furioso, Fantasmal, Eléctrico, Espinoso, Voraz, Sombrío, Luminoso, Colosal, Frenético, Petrificado, Hambriento, Errante', 'Anomalías de Lo Hondo (por hora): Invertido, Sin Sombra, Duplicado, Resonante, Hueco, Imposible, Reescrito, Sin Nombre'], tam: '8×8 + detalle', anim: '—' });
+add({ t: 'ma', w: 'C', c: 3, p: 2, n: 'Mutaciones del Descensor', v: '12 buenas y 8 malas, visibles en el sprite', k: 'mutacion_<id>', sh: 'swatch', col: '#9f7aff',
+  d: 'Marcas que se suman al cuerpo del Descensor según la Presión. Deben combinarse entre sí sin tapar la silueta.',
+  vars: ['Buenas: Ojos de Oscuridad, Piel de Corteza, Sangre Luminosa, Brazos Largos, Pulmón Doble, Nervios de Cable, Huesos Huecos, Garras, Glándula de Veneno, Tercer Párpado, Piel de Espejo, Estómago de Moneda', 'Malas: Piel de Cristal, Sangre Espesa, Manos Temblorosas, Pies de Plomo, Ojos Quemados, Músculo Flojo, Corazón Lento, Piel Fina'], tam: 'capas sobre 24×32', anim: '—' });
+add({ t: 'ma', w: 'C', p: 2, n: 'Sinergias', v: '10 etiquetas: orbes que giran alrededor del héroe', k: 'sinergia_<etiqueta>', sh: 'swatch', col: '#3fe0e6',
+  d: 'Con 3 piezas de una etiqueta aparece un orbe que orbita; con 4, un halo de transformación.', vars: ['Fuego, Hielo, Veneno, Sagrado, Sombra, Mecánico, Bestia, Arcano, Marino, Cristal', 'Orbe 8×8 + halo 32×40 por etiqueta'], tam: '8×8 / 32×40', anim: 'orbe 4' });
+add({ t: 'ma', w: 'C', p: 3, n: 'Placas de rango', v: 'Óxido · Cobre · Plata · Cobalto · Obsidiana · Placa Blanca · Sin Nombre', k: 'placa_<rango>', sh: 'swatch', col: '#e8dcc0',
+  d: 'La placa del Descensor según la profundidad del día; se guarda en la Crónica.', vars: ['7 placas 24×16'], tam: '24×16', anim: '—' });
+
+// ---------- dibujo de las vistas previas (las formas que el juego usa hoy) ----------
+function prev(it) {
+  const c = it.col;
+  const eye = (x, y) => `<rect x="${x}" y="${y}" width="5" height="5" fill="#05060c"/><rect x="${x + 1}" y="${y + 1}" width="2" height="2" fill="#fff"/>`;
+  const ground = '<rect x="0" y="62" width="96" height="10" fill="#1b2030"/>';
+  switch (it.sh) {
+    case 'hero': case 'npc': case 'comp': {
+      const k = it.sh === 'comp' ? 0.8 : 1;
+      return `${ground}<g transform="translate(48 62) scale(${k}) translate(-48 -62)"><rect x="39" y="47" width="5" height="15" fill="#167a80"/><rect x="47" y="47" width="5" height="15" fill="#167a80"/><rect x="36" y="31" width="20" height="18" fill="${it.sh === 'hero' ? '#3fe0e6' : c}"/><rect x="38" y="19" width="15" height="13" fill="${it.sh === 'hero' ? '#3fe0e6' : c}"/><rect x="47" y="23" width="8" height="3" fill="${c}"/><rect x="22" y="31" width="14" height="3" fill="${c}"/><line x1="56" y1="38" x2="68" y2="30" stroke="#e8fbff" stroke-width="3"/></g>`;
+    }
+    case 'pet': return `<circle cx="48" cy="38" r="9" fill="${c}"/><circle cx="48" cy="38" r="16" fill="${c}" opacity="0.15"/>${eye(43, 35)}`;
+    case 'cr': case 'boss': case 'elite': {
+      const big = it.sh !== 'cr';
+      const r = big ? 22 : 15;
+      const y = it.vuela ? 30 : 62 - r;
+      const x = 52;
+      let shape;
+      switch (it.forma) {
+        case 'triangulo': shape = `<polygon points="${x - r},${y} ${x + r * 0.8},${y - r * 0.8} ${x + r * 0.8},${y + r * 0.8}"/>`; break;
+        case 'rombo': shape = `<polygon points="${x},${y - r} ${x + r * 0.7},${y} ${x},${y + r} ${x - r * 0.7},${y}"/>`; break;
+        case 'circulo': shape = `<circle cx="${x}" cy="${y}" r="${r * 0.85}"/>`; break;
+        case 'cruz': shape = `<rect x="${x - r}" y="${y - r * 0.25}" width="${r * 2}" height="${r * 0.5}"/><rect x="${x - r * 0.25}" y="${y - r}" width="${r * 0.5}" height="${r * 2}"/>`; break;
+        default: shape = `<rect x="${x - r * 0.8}" y="${y - r * 0.75}" width="${r * 1.6}" height="${r * 1.5}"/>`;
+      }
+      const aura = big ? `<ellipse cx="${x}" cy="61" rx="${r * 1.2}" ry="4" fill="none" stroke="${it.sh === 'boss' ? '#ff4d5e' : '#ffb347'}" stroke-width="2"/><g fill="${it.sh === 'boss' ? '#ff4d5e' : '#ffb347'}"><polygon points="${x - 9},${y - r - 1} ${x - 6},${y - r - 9} ${x - 3},${y - r - 1}"/><polygon points="${x - 3},${y - r - 1} ${x},${y - r - 13} ${x + 3},${y - r - 1}"/><polygon points="${x + 3},${y - r - 1} ${x + 6},${y - r - 9} ${x + 9},${y - r - 1}"/></g>` : '';
+      return `${ground}${aura}<g fill="${c}" stroke="#00000073" stroke-width="1.5">${shape}</g>${eye(x - r * 0.5, y - r * 0.2)}`;
+    }
+    case 'scene': {
+      const p = PAL[it.pal] || PAL.H;
+      let s = `<rect width="96" height="72" fill="${p[0]}"/>`;
+      [[0.3, p[1], 22], [0.55, p[2], 15], [0.8, p[3], 11]].forEach(([f, col, cw], li) => {
+        for (let x = -4, i = 0; x < 96; x += cw, i++) {
+          const h = 10 + ((i * 37 + li * 11) % 23) * (1.2 - f);
+          s += `<rect x="${x}" y="${58 - h}" width="${cw - 3}" height="${h}" fill="${col}"/>`;
+          if (li < 2 && i % 2) s += `<rect x="${x + 3}" y="${60 - h}" width="2" height="2" fill="${p[6 + (i % 3)] || p[6]}"/>`;
+        }
+      });
+      return s + `<rect x="0" y="58" width="96" height="14" fill="${p[4]}"/><rect x="0" y="58" width="96" height="2" fill="${p[5]}"/>`;
+    }
+    case 'mod': return `<line x1="34" y1="0" x2="38" y2="20" stroke="#5b6377"/><line x1="62" y1="0" x2="58" y2="20" stroke="#5b6377"/><rect x="28" y="20" width="40" height="28" fill="#20264a" stroke="${c}" stroke-width="1.5"/><rect x="34" y="27" width="6" height="6" fill="${c}"/><rect x="45" y="27" width="6" height="6" fill="${c}" opacity="0.6"/><rect x="56" y="27" width="6" height="6" fill="${c}"/><rect x="28" y="44" width="40" height="4" fill="${c}" opacity="0.4"/>`;
+    case 'event': return `<rect width="96" height="72" fill="#0c0f18"/><circle cx="62" cy="30" r="16" fill="${c}" opacity="0.18"/><circle cx="62" cy="30" r="10" fill="none" stroke="${c}" stroke-width="2"/><rect x="0" y="58" width="96" height="14" fill="#1b2030"/>`;
+    default: {
+      const cols = ['#ff3fa4', '#3fe0e6', '#ffb347', '#b6ff3f', '#9f7aff', '#3fe0b0', '#ff4d5e', '#e8dcc0'];
+      return cols.map((col, i) => `<rect x="${8 + (i % 4) * 21}" y="${12 + Math.floor(i / 4) * 26}" width="16" height="16" fill="${col}"/>`).join('');
+    }
+  }
+}
+
+// ---------- progreso: id estable de cada pieza (también es el id en la base de datos) ----------
+const slug = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^_+|_+$/g, '');
+const usados = new Set();
+I.forEach((x) => {
+  let id = slug(x.k) || slug(x.n);
+  while (usados.has(id)) id += '_b';
+  usados.add(id);
+  x.id = id;
+});
+/** Progreso guardado: id → { hecha, integrada } (lo lee y lo escribe también Claude). */
+const prog = {};
+let db = null;
+let progLoaded = false;
+const ESTADOS = { pendiente: 'Pendientes', hecha: 'Hechas, sin añadir', integrada: 'Ya en el juego' };
+const estadoDe = (x) => (prog[x.id]?.integrada ? 'integrada' : prog[x.id]?.hecha ? 'hecha' : 'pendiente');
+
+// ---------- filtros ----------
+const state = { mundo: 'todos', capa: 'todas', tipos: new Set(), prios: new Set(), q: '', estado: 'todos' };
+try { const s = JSON.parse(localStorage.getItem('guia-arte') || 'null'); if (s) { state.mundo = s.mundo || 'todos'; state.capa = s.capa || 'todas'; state.tipos = new Set(s.tipos || []); state.prios = new Set(s.prios || []); } } catch (e) {}
+const save = () => { try { localStorage.setItem('guia-arte', JSON.stringify({ mundo: state.mundo, capa: state.capa, tipos: [...state.tipos], prios: [...state.prios] })); } catch (e) {} };
+const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function chip(label, pressed, onClick, color, count) {
+  const b = document.createElement('button');
+  b.className = 'chip';
+  b.type = 'button';
+  b.setAttribute('aria-pressed', String(pressed));
+  if (color) b.style.setProperty('--c', color);
+  b.innerHTML = `${color ? '<span class="dot"></span>' : ''}${label}${count !== undefined ? ` <span class="ct">${count}</span>` : ''}`;
+  b.addEventListener('click', onClick);
+  return b;
+}
+function buildFilters() {
+  const fm = document.getElementById('f-mundo');
+  fm.querySelectorAll('.chip').forEach((x) => x.remove());
+  fm.append(chip('Todos', state.mundo === 'todos', () => { state.mundo = 'todos'; update(); }, null, I.length));
+  Object.entries(MUNDOS).forEach(([k, m]) => fm.append(chip(m.n, state.mundo === k, () => { state.mundo = k; update(); }, m.c, I.filter((x) => x.w === k).length)));
+  const fc = document.getElementById('f-capa');
+  fc.querySelectorAll('.chip').forEach((x) => x.remove());
+  fc.append(chip('Todas', state.capa === 'todas', () => { state.capa = 'todas'; update(); }));
+  Object.entries(CAPAS).forEach(([k, n]) => fc.append(chip(n, state.capa === k, () => { state.capa = k; update(); })));
+  const ft = document.getElementById('f-tipo');
+  ft.querySelectorAll('.chip').forEach((x) => x.remove());
+  Object.entries(TIPOS).forEach(([k, n]) => ft.append(chip(n, state.tipos.has(k), () => { state.tipos.has(k) ? state.tipos.delete(k) : state.tipos.add(k); update(); }, null, I.filter((x) => x.t === k).length)));
+  const fp = document.getElementById('f-prio');
+  fp.querySelectorAll('.chip').forEach((x) => x.remove());
+  const q = document.getElementById('q');
+  Object.entries(PRIOS).forEach(([k, n]) => fp.insertBefore(chip(n, state.prios.has(k), () => { state.prios.has(k) ? state.prios.delete(k) : state.prios.add(k); update(); }, null, I.filter((x) => String(x.p) === k).length), q));
+  const fe = document.getElementById('f-estado');
+  const ds = document.getElementById('db-status');
+  fe.querySelectorAll('.chip').forEach((x) => x.remove());
+  fe.insertBefore(chip('Todas', state.estado === 'todos', () => { state.estado = 'todos'; update(); }), ds);
+  Object.entries(ESTADOS).forEach(([k, n]) => fe.insertBefore(chip(n, state.estado === k, () => { state.estado = k; update(); }, k === 'integrada' ? '#b48cff' : k === 'hecha' ? '#b6ff3f' : null, I.filter((x) => estadoDe(x) === k).length), ds));
+}
+
+function visible(x) {
+  if (state.mundo !== 'todos' && x.w !== state.mundo) return false;
+  if (state.capa !== 'todas' && x.c !== 0 && String(x.c) !== state.capa) return false;
+  if (state.capa !== 'todas' && x.c === 0 && x.t === 'es') return false;
+  if (state.tipos.size && !state.tipos.has(x.t)) return false;
+  if (state.prios.size && !state.prios.has(String(x.p))) return false;
+  if (state.estado !== 'todos' && estadoDe(x) !== state.estado) return false;
+  if (state.q) {
+    const hay = norm([x.n, x.v, x.d, x.k, ...(x.vars || []), MUNDOS[x.w].n, TIPOS[x.t]].join(' '));
+    if (!state.q.split(/\s+/).every((t) => hay.includes(t))) return false;
+  }
+  return true;
+}
+
+function card(x) {
+  const m = MUNDOS[x.w];
+  const capa = x.c ? CAPAS[x.c] : (x.t === 'es' || x.t === 'je' ? '' : 'Todas las capas');
+  return `<article class="card" style="--c:${x.col || m.c}">
+    <div class="card-top">
+      <svg class="prev" viewBox="0 0 96 72" role="img" aria-label="Forma provisional actual de ${x.n}">${prev(x)}</svg>
+      <div style="min-width:0">
+        <h3>${x.n}</h3>
+        <div class="sub">${x.v || ''}</div>
+        <div class="tags"><span class="tag p${x.p}">${PRIOS[x.p]}</span><span class="tag">${TIPOS[x.t]}</span><span class="tag" style="color:${m.c}">${m.n}</span>${capa ? `<span class="tag">${capa}</span>` : ''}</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>${x.d}</p>
+      ${x.vars && x.vars.length ? `<ul class="vars">${x.vars.map((v) => `<li>${v}</li>`).join('')}</ul>` : ''}
+      <dl class="kv">
+        ${x.tam ? `<dt>Tamaño</dt><dd>${x.tam}</dd>` : ''}
+        ${x.anim ? `<dt>Animación</dt><dd>${x.anim}</dd>` : ''}
+        <dt>Clave</dt><dd><code>${x.k}</code></dd>
+      </dl>
+      <div class="pr">
+        <div class="pr-row"><button class="copy" type="button" data-i="${I.indexOf(x)}">Copiar prompt</button><span class="status" aria-live="polite"></span></div>
+        <div class="pr-row">
+          <label class="check" title="Márcala cuando tengas la imagen"><input type="checkbox" class="hecha" id="hecha-${x.id}" data-id="${x.id}" disabled> Imagen hecha</label>
+          <label class="check mine" title="La marca Claude cuando la añade al juego"><input type="checkbox" class="integrada" id="int-${x.id}" disabled> En el juego <span class="status">(la marca Claude)</span></label>
+        </div>
+        <details><summary>Ver prompt</summary><textarea id="pr-${I.indexOf(x)}" readonly aria-label="Prompt de ${x.n}">${esc(promptFor(x))}</textarea></details>
+      </div>
+    </div>
+  </article>`;
+}
+
+// ---------- prompts para otras IA de arte ----------
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const PALETA = {
+  N: 'Corriente Neón (cyberpunk oscuro): negro azulado, magenta #ff3fa4, cian #3fe0e6 y ámbar de sodio #ffb347; luces de neón y lluvia.',
+  S: 'Corriente Sintética (brutalismo gráfico): blanco hueso #e8e6df, gris hormigón #3c4145, verde ácido #b6ff3f, naranja de seguridad #ff7a1a y negro puro; formas limpias y geométricas.',
+  A: 'Corriente Abismal (maravilla natural): verdes profundos #173a31, turquesa #3fe0b0, dorado de luz filtrada #d8c27a y violeta bioluminiscente #9f7aff.',
+  H: 'Lo Hondo (a más de 15.000 m): casi todo en penumbra, con la luz propia del lugar como único acento.',
+  C: 'Aparece en las tres corrientes: diseño neutro que funcione con la paleta Neón (magenta y cian), Sintética (hueso y verde ácido) o Abismal (verde profundo y turquesa).',
+};
+const ESTILO = 'Estilo: pixel art nítido para un videojuego 2D de desplazamiento lateral, alineado a la cuadrícula, sin antialiasing, sin degradados suaves ni desenfoques, colores planos y pocos tonos. Silueta muy legible a tamaño pequeño, contorno oscuro de 1 px y un punto de luz brillante (ojo, visor o farol). Tono: maravilla e inquietud, belleza que da un poco de miedo. Mundo original: no imites personajes, criaturas, logos ni estilos de juegos u obras existentes. Sin texto ni marcas de agua.';
+const QUE = {
+  pj: (x) => `Sprite de personaje en vista lateral, de cuerpo entero, mirando a la derecha (corre hacia la derecha), centrado y con los pies en la base de la celda. Fondo transparente.`,
+  cr: (x) => `Sprite de criatura enemiga en vista lateral, de cuerpo entero, mirando a la izquierda (hacia el héroe)${x.vuela ? ', flotando en el aire' : ', apoyada en el suelo'}. Fondo transparente.`,
+  je: (x) => `Sprite de jefe enemigo grande e imponente en vista lateral, mirando a la izquierda, de cuerpo entero. Debe sentirse mucho más amenazante que una criatura normal. Fondo transparente.`,
+  es: (x) => `Fondo de un juego de desplazamiento lateral, visto de perfil: la pared de un abismo vertical inmenso. Divídelo en 3 capas de parallax separadas (lejana, media y cercana), cada una como tira horizontal repetible sin costuras en los bordes izquierdo y derecho, y aparte un tramo repetible de la cornisa por la que corre el héroe. El héroe es diminuto frente a la escala del lugar.`,
+  ba: (x) => `Módulo de una base que cuelga de cables sobre un abismo, en vista lateral; se une a otros módulos parecidos. Fondo transparente.`,
+  su: (x) => `Elemento de escena para un suceso especial del juego, en vista lateral, pensado para verse sobre el fondo del abismo. Fondo transparente salvo que sea un efecto que llena la pantalla.`,
+  ma: (x) => `Hoja de iconos y marcas pequeñas para el juego, todas con el mismo tamaño de celda y el mismo estilo. Fondo transparente.`,
+};
+function promptFor(x) {
+  const partes = [
+    QUE[x.t](x),
+    `Tema: «${x.n}»${x.v ? ` — ${x.v}` : ''}.`,
+    `Descripción: ${x.d}`,
+    x.vars && x.vars.length ? `Variantes a dibujar: ${x.vars.join('; ')}.` : '',
+    x.tam ? `Tamaño de celda: ${x.tam} píxeles.` : '',
+    x.anim && x.anim !== '—' ? `Animaciones: ${x.anim} (número de fotogramas). Entrega cada animación como hoja de sprites horizontal, con todas las celdas del mismo tamaño y el personaje en la misma posición.` : '',
+    `Paleta: ${PALETA[x.w]}`,
+    ESTILO,
+  ];
+  return partes.filter(Boolean).join('\n\n');
+}
+document.getElementById('list').addEventListener('click', async (e) => {
+  const b = e.target.closest('.copy');
+  if (!b) return;
+  const i = b.dataset.i;
+  const ta = document.getElementById(`pr-${i}`);
+  const st = b.nextElementSibling;
+  try {
+    await navigator.clipboard.writeText(ta.value);
+    b.textContent = 'Copiado';
+    b.classList.add('ok');
+    st.textContent = '';
+    setTimeout(() => { b.textContent = 'Copiar prompt'; b.classList.remove('ok'); }, 1600);
+  } catch (err) {
+    // Sin permiso de portapapeles: se abre el prompt seleccionado para copiarlo a mano.
+    ta.closest('details').open = true;
+    ta.focus();
+    ta.select();
+    st.textContent = 'Pulsa Ctrl+C para copiarlo';
+  }
+});
+
+function render() {
+  const list = document.getElementById('list');
+  const vis = I.filter(visible);
+  document.getElementById('status').textContent = `${vis.length} de ${I.length} piezas`;
+  if (!vis.length) { list.innerHTML = '<p class="empty">Ninguna pieza cumple estos filtros. Quita alguno o borra la búsqueda.</p>'; return; }
+  // Agrupado por mundo y, dentro, por tipo.
+  const order = state.mundo === 'todos' ? Object.keys(MUNDOS) : [state.mundo];
+  let html = '';
+  for (const w of order) {
+    const inW = vis.filter((x) => x.w === w);
+    if (!inW.length) continue;
+    for (const t of Object.keys(TIPOS)) {
+      const g = inW.filter((x) => x.t === t);
+      if (!g.length) continue;
+      html += `<section class="group"><div class="group-h"><span class="gname" style="color:${MUNDOS[w].c}">${MUNDOS[w].n}</span><span class="gname">· ${TIPOS[t]}</span><span class="gsub">${g.length} PIEZA${g.length > 1 ? 'S' : ''} · ${MUNDOS[w].d}</span></div><div class="grid">${g.map(card).join('')}</div></section>`;
+    }
+  }
+  list.innerHTML = html;
+  applyStates();
+}
+function update() { save(); buildFilters(); render(); }
+
+/** Pone las casillas y el resumen según el progreso guardado, sin redibujar las fichas. */
+function applyStates() {
+  for (const x of I) {
+    const h = document.getElementById(`hecha-${x.id}`);
+    if (!h) continue;
+    const p = prog[x.id] || {};
+    const it = document.getElementById(`int-${x.id}`);
+    h.checked = !!p.hecha;
+    h.disabled = !db || !progLoaded;
+    it.checked = !!p.integrada;
+    h.parentElement.classList.toggle('on', !!p.hecha);
+    it.parentElement.classList.toggle('on', !!p.integrada);
+    h.closest('.card').classList.toggle('integrada', !!p.integrada);
+  }
+  const hechas = I.filter((x) => prog[x.id]?.hecha || prog[x.id]?.integrada).length;
+  const integradas = I.filter((x) => prog[x.id]?.integrada).length;
+  document.getElementById('prog-tot').innerHTML = `<b class="ok">${hechas}</b>hechas · <b class="int">${integradas}</b>en el juego · de ${I.length}`;
+}
+
+// La casilla «Imagen hecha» la marca el usuario; «En el juego» solo la escribe Claude.
+document.getElementById('list').addEventListener('change', async (e) => {
+  const cb = e.target.closest('input.hecha');
+  if (!cb || !db) return;
+  const x = I.find((it) => it.id === cb.dataset.id);
+  const cur = prog[x.id] || {};
+  const st = document.getElementById('db-status');
+  cb.disabled = true;
+  try {
+    await db.collection('progreso').doc(x.id).set({ ...cur, nombre: x.n, tipo: TIPOS[x.t], hecha: cb.checked, integrada: !!cur.integrada });
+    st.textContent = 'Guardado';
+  } catch (err) {
+    cb.checked = !cb.checked;
+    st.textContent = 'No se pudo guardar. Vuelve a intentarlo.';
+  } finally {
+    cb.disabled = false;
+  }
+});
+
+(async () => {
+  const st = document.getElementById('db-status');
+  db = window.claude?.use ? await window.claude.use('db') : null;
+  if (!db) {
+    st.textContent = 'El progreso solo se guarda en la página publicada, con tu sesión iniciada.';
+    return;
+  }
+  const timer = setTimeout(() => { if (!progLoaded) st.textContent = 'El progreso tarda en cargar. Las casillas se activarán solas cuando llegue.'; }, 10_000);
+  db.collection('progreso').onSnapshot(
+    (snap) => {
+      clearTimeout(timer);
+      for (const k of Object.keys(prog)) delete prog[k];
+      for (const d of snap.docs) prog[d.id] = d.data();
+      progLoaded = true;
+      if (!snap.metadata.hasPendingWrites) st.textContent = '';
+      if (state.estado !== 'todos') render();
+      buildFilters();
+      applyStates();
+    },
+    () => {
+      clearTimeout(timer);
+      st.textContent = 'No se pudo cargar el progreso. Recarga la página.';
+    },
+  );
+})();
+
+// Totales y paletas
+const tot = document.getElementById('totals');
+tot.innerHTML = Object.entries(TIPOS).map(([k, n]) => `<span class="tot"><b>${I.filter((x) => x.t === k).length}</b>${n}</span>`).join('') + `<span class="tot"><b>${I.filter((x) => x.p === 1).length}</b>imprescindibles</span><span class="tot prog" id="prog-tot"></span>`;
+document.getElementById('palettes').innerHTML = Object.entries(PAL).map(([k, cols]) => `<div class="pal-row"><span style="color:${MUNDOS[k].c}">${MUNDOS[k].n}</span><div class="sw">${cols.map((c) => `<span title="${c}" style="background:${c}"></span>`).join('')}</div></div>`).join('');
+document.getElementById('q').addEventListener('input', (e) => { state.q = norm(e.target.value.trim()); render(); });
+update();
+</script>

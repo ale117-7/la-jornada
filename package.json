@@ -1,0 +1,62 @@
+{
+  "name": "la-jornada",
+  "productName": "La Jornada",
+  "private": true,
+  "version": "0.1.0",
+  "description": "La Jornada: juego automático que avanza mientras trabajas",
+  "author": "La Jornada",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "sim": "tsx scripts/sim.ts",
+    "build:desktop": "npm run build && node scripts/build-electron.mjs",
+    "desktop": "npm run build:desktop && electron .",
+    "dist": "node scripts/make-icon.mjs && npm run build:desktop && electron-builder --win nsis portable"
+  },
+  "build": {
+    "appId": "com.lajornada.app",
+    "productName": "La Jornada",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "LaJornada-Setup-${version}.exe",
+      "include": "build/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "LaJornada-Portable-${version}.exe"
+    },
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "electron": "^45.3.0",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

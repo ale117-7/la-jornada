@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>La Jornada · overlay</title>
+  </head>
+  <body>
+    <div id="cards" class="interactive" hidden></div>
+    <div id="band">
+      <canvas id="strip"></canvas>
+      <div id="banner" hidden></div>
+      <div id="controls">
+        <div id="handle" class="interactive" title="Arrastrar">⠿</div>
+        <button id="toggle" class="interactive" type="button" title="Trabajar / Pausa">▶</button>
+        <button id="alert" class="interactive" type="button" title="Abrir la Encrucijada" hidden>⚠ Encrucijada</button>
+        <div id="info" class="interactive" title="Doble clic: abrir el panel completo">
+          <span id="clock">0h 00m</span>
+          <span id="depth">−0 M</span>
+          <span id="extra"></span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/overlay.ts"></script>
+  </body>
+</html>
